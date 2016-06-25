@@ -49,7 +49,8 @@ def initalize():
 
     temp_config=json.dumps(new_config)
     config_write(temp_config)
-    
+
+    return new_config
 
 def add_member(port=None,passwd=''):
     if not port:
@@ -142,18 +143,21 @@ def startup_file(config_file_path='/etc/shadowsocks.json'):
     if not file_path:
         file_path='/start.sh'
     if not os.path.exists(file_path):
-        os.system('touch {}'.format(file_path)
+        os.system('touch {}'.format(file_path))
         File=open(file_path,'w+')
         for i in range(len(content)):
             File.write(content[i]+'\n')
         
 
 def main():
-    initalize()
+    crazy_list=initalize()
     firewall_unlock()
     ipforward()
     startup_file()
-
+    crazy_list_keys=crazy_list['port_password'].keys()
+    for i in crazy_list_keys:
+        print 'Port: ',i
+        print 'Password: ',crazy_list['port_password'][i],'\n'
 if __name__ == "__main__":
     main()
 
