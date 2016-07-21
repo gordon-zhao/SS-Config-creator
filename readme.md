@@ -1,6 +1,6 @@
 This is a really lazy tool
 
-Usage: python auto_configure.py 
+Usage: sudo python auto_configure.py 
 
 normal user: read the output 
 
