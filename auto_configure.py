@@ -60,7 +60,7 @@ def add_member(port=None,passwd=''):
             if not port:
                 message=raw_input('Do you want a random port? (Y/N)')
                 if message=='Y' or message=='y' or message=='':
-                    port=random.randrange(9000,99999)
+                    port=random.randrange(9000,65536)
                 else:
                     port='9001'
 
