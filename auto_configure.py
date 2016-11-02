@@ -127,6 +127,7 @@ def firewall_unlock():
         else:
             print 'Something may happened during adding rules to iptables. Please notice. '
         os.system('sudo iptables -A INPUT -p udp --dport {} -j ACCEPT'.format(i))
+        os.system('sudo firewall-cmd --reload')
 
 def ipforward():
     os.system('sudo echo "1"> /proc/sys/net/ipv4/ip_forward')
@@ -148,7 +149,18 @@ def startup_file(config_file_path='/etc/shadowsocks.json'):
         for i in range(len(content)):
             File.write(content[i]+'\n')
         
-
+def server_reg():
+    path='/etc/systemd/system/shadowsocks.service'
+    lines=['[Unit]','Description=Shadowsocks','[Service]','TimeoutStartSec=0','ExecStart=/usr/bin/ssserver -c /etc/shadowsocks.json','[Install]','WantedBy=multi-user.target]']
+    with open(path,'w+') as files:
+        for line in lines:
+            files.writeline(lines)
+        finally:
+            file.close()
+    os.system('sudo systemctl enable shadowsocks')
+    os.system('sudo systemctl start shadowsocks')
+    print 'Service registed!'
+    
 def main():
     crazy_list=initalize()
     firewall_unlock()
@@ -158,6 +170,7 @@ def main():
     for i in crazy_list_keys:
         print 'Port: ',i
         print 'Password: ',crazy_list['port_password'][i],'\n'
+    server_reg()
 if __name__ == "__main__":
     main()
 
