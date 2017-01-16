@@ -154,7 +154,7 @@ def server_reg():
     lines=['[Unit]','Description=Shadowsocks','[Service]','TimeoutStartSec=0','ExecStart=/usr/bin/ssserver -c /etc/shadowsocks.json','[Install]','WantedBy=multi-user.target]']
     with open(path,'w+') as files:
         for line in lines:
-            files.writeline(line)
+            files.write(line+'\n')
     os.system('sudo systemctl enable shadowsocks')
     os.system('sudo systemctl start shadowsocks')
     print 'Service registed!'
