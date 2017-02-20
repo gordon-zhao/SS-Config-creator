@@ -151,7 +151,7 @@ def startup_file(config_file_path='/etc/shadowsocks.json'):
         
 def server_reg():
     path='/etc/systemd/system/shadowsocks.service'
-    lines=['[Unit]','Description=Shadowsocks','[Service]','TimeoutStartSec=0','ExecStart=/usr/bin/ssserver -c /etc/shadowsocks.json','[Install]','WantedBy=multi-user.target]']
+    lines=['[Unit]','Description=Shadowsocks','[Service]','TimeoutStartSec=0','ExecStart=/usr/bin/ssserver -c /etc/shadowsocks.json','[Install]','WantedBy=multi-user.target']
     with open(path,'w+') as files:
         for line in lines:
             files.write(line+'\n')
