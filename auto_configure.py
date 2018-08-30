@@ -4,11 +4,14 @@ import os
 import random
 import string
 
+'''
+# Debug
 try:
     shadowsocks_config=open('D:/shadowsocks.json','r+')
     config=json.load(shadowsocks_config)
 except:
     print 'opps'
+'''
 templete={'server':'0.0.0.0','port_password':{},'method':'aes-256-cfb','local_port':'1080','timeout':'30'}
 
 def initalize():
@@ -76,7 +79,7 @@ def add_member(port=None,passwd=''):
                 passwd+=random.choice(string.letters)
         try:
             port=int(port)
-            if port<100000 and port>9:
+            if port<65536 and port>9:
                 new_config['port_password'][str(port)]=passwd
         except ValueError:
             raise('Port is not valuable!')
